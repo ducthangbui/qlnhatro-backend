@@ -69,6 +69,20 @@ class HostelController extends Controller
     }
 
     // findByRangeDate
+    public function findByRangeDate(Request $request)
+    {
+        $from = date($request->input("from"));
+        $to = date($request->input("to"));
+        $offset = $request->input("offset");
+        $hostels = Hostel::whereBetween('created_at',[$from,$to])
+                    ->skip($offset)
+                    ->take(4)
+                    ->get();
+
+        return response()->json([
+            "hostels" => $hostels
+        ],200);
+    }
 
     public function getHirredHostel(Request $request)
     {
