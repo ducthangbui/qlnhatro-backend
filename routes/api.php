@@ -57,3 +57,15 @@ Route::get('/hostels/{hostelid}',[
     'uses' => 'HostelController@getHostel'
 ]);
 
+Route::get('/hostels/findByPrice',[
+    'uses' => 'HostelController@findByPrice'
+]);
+
+Route::get('/hostels/findByRegion',[
+    'uses' => 'HostelController@findByRegion'
+]);
+
+Route::get('/hostels/findByAdd',[
+    'uses' => 'HostelController@findByAdd'
+]);
+
