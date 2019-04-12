@@ -73,6 +73,11 @@ class UserController extends Controller
     {
         $user = JWTAuth::parseToken()->toUser();
         $user_info = User::where('id',$user->id)->find(1);
+        if ($user_info == null){
+            return response([
+                "message" => "not found"
+            ],201);
+        }
         $user_info->name = $request->name;
         $user_info->email = $request->email;
         if ($request->password != "" || $request->password != null){

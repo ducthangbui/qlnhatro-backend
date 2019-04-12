@@ -37,6 +37,6 @@ class CreateHostelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hostel');
+        Schema::dropIfExists('hostels');
     }
 }
