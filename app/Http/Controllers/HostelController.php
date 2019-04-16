@@ -8,12 +8,13 @@ use App\RoleUser;
 use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Log;
 
 class HostelController extends Controller
 {
     public function getHostels(Request $request, $offset)
     {
-        $hostels = Hostel::where('status',1)->skip($offset)->take(4)->get();
+        $hostels = Hostel::where('status',0)->skip($offset)->take(42)->get();
         return response()->json([
             "hostels" => $hostels
         ],200);
@@ -153,20 +154,29 @@ class HostelController extends Controller
     public function addHostel(Request $request)
     {
         $user = JWTAuth::parseToken()->toUser();
-        $user_role = RoleUser::where('id',$user->id)->first();
-        if ($user_role->id != 1) {
+        $user_role = User::where('id',$user->id)->first();
+        if ($user_role->roleid != 1) {
             return response()->json([
                 "message" => "must be landlord"
             ],300);
         }
+        Log::info('Showing user profile for user: '.$user_role);
 
-        $hostel_user = new HostelUser([
-            "userct" => $user->id
+        $hostel = new Hostel([
+            "userid" => $user->id,
+            "electricprice" => $request->input('electricprice'),
+            "waterprice" => $request->input('waterprice'),
+            "sanitationcost" => $request->input('sanitationcost'),
+            "securitycost" => $request->input('securitycost'),
+            "closedtime" => $request->input('closedtime'),
+            "status" => $request->input('status'),
+            "price" => $request->input('price'),
+            "regionid" => $request->input('regionid'),
+            "addid" => $request->input('addid'),
+            "haslandlords" => $request->input('haslandlords')
         ]);
-        $hostel_user->save();
+        $hostel->save();
 
-        $data = $request->all();
-        $hostel = Hostel::created($data);
         if ($hostel){
             return response()->json([
                 "message" => "success"

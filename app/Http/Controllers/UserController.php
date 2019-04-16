@@ -18,9 +18,9 @@ class UserController extends Controller
         ]);
 
         $roleid = $request->input('roleid');
-        if ($roleid == 1) {
-            $roleid = 2;
-        }
+//        if ($roleid == 1) {
+//            $roleid = 2;
+//        }
 
         $user = new User([
             'name' => $request->input('name'),
