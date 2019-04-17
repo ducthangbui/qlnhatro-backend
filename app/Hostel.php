@@ -8,6 +8,6 @@ class Hostel extends Model
 {
     protected $fillable = [
       'userid', 'electricprice', 'waterprice', 'sanitationcost', 'securitycost', 'closedtime', 'status',
-        'price', 'regionid', 'addid', 'haslandlords'
+        'price', 'img', 'addid', 'haslandlords'
     ];
 }

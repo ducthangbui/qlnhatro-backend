@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Log;
+use Validator;
 
 class HostelController extends Controller
 {
@@ -160,27 +161,50 @@ class HostelController extends Controller
                 "message" => "must be landlord"
             ],300);
         }
-        Log::info('Showing user profile for user: '.$user_role);
 
-        $hostel = new Hostel([
-            "userid" => $user->id,
-            "electricprice" => $request->input('electricprice'),
-            "waterprice" => $request->input('waterprice'),
-            "sanitationcost" => $request->input('sanitationcost'),
-            "securitycost" => $request->input('securitycost'),
-            "closedtime" => $request->input('closedtime'),
-            "status" => $request->input('status'),
-            "price" => $request->input('price'),
-            "regionid" => $request->input('regionid'),
-            "addid" => $request->input('addid'),
-            "haslandlords" => $request->input('haslandlords')
-        ]);
-        $hostel->save();
+        $rules = ['image' => 'image'];
+        $posts = ['image' => $request->file('image')];
 
-        if ($hostel){
+        $valid = Validator::make($posts, $rules);
+        if ($valid->fails()) {
             return response()->json([
-                "message" => "success"
-            ],200);
+                'message' => 'failed'
+            ],500);
+        }
+
+        if ($request->file('image')->isValid())
+        {
+            $fileExtension = $request->file('image')->getClientOriginalExtension(); // Lấy . của file
+
+            // Filename cực shock để khỏi bị trùng
+            $fileName = time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
+
+            // Thư mục upload
+            $uploadPath = public_path('/upload'); // Thư mục upload
+
+            // Bắt đầu chuyển file vào thư mục
+            $request->file('image')->move($uploadPath, $fileName);
+
+            $hostel = new Hostel([
+                "userid" => $user->id,
+                "electricprice" => $request->input('electricprice'),
+                "waterprice" => $request->input('waterprice'),
+                "sanitationcost" => $request->input('sanitationcost'),
+                "securitycost" => $request->input('securitycost'),
+                "closedtime" => $request->input('closedtime'),
+                "status" => $request->input('status'),
+                "price" => $request->input('price'),
+                "addid" => $request->input('addid'),
+                "haslandlords" => $request->input('haslandlords'),
+                "img" =>  $fileName
+            ]);
+            $hostel->save();
+
+            if ($hostel){
+                return response()->json([
+                    "message" => "success"
+                ],200);
+            }
         }
 
         return response()->json([
