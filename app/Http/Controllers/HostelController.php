@@ -200,21 +200,21 @@ class HostelController extends Controller
                 "img" =>  $fileName
             ]);
             $hostel->save();
-            return response()->json([
-                "message" => $hostel->id
-            ],500);
-//            if (!$hostel){
-//                return response()->json([
-//                    "message" => "not success"
-//                ],500);
-//            }
+//            return response()->json([
+//                "message" => $hostel->id
+//            ],500);
+            if (!$hostel){
+                return response()->json([
+                    "message" => "not success"
+                ],500);
+            }
             $hostelId = $hostel->id;
             $regionsIds = $request->input('regions');
             $regionsIds = explode(",",$regionsIds);
             foreach ($regionsIds as $regionId){
                 $hostelRegion = new HostelRegion([
-                    "regionId" => $regionId,
-                    "hostelId" =>$hostelId
+                    "regionid" => $regionId,
+                    "hostelid" =>$hostelId
                 ]);
                 $hostelRegion->save();
                 if (!$hostelRegion){
