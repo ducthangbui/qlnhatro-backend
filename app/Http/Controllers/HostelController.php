@@ -212,9 +212,9 @@ class HostelController extends Controller
             $regionsIds = $request->input('regions');
             $regionsIds = explode(",",$regionsIds);
             foreach ($regionsIds as $regionId){
-                return response()->json([
-                    "message" => (int)$regionId
-                ],500);
+//                return response()->json([
+//                    "message" => (int)$regionId
+//                ],500);
                 $hostelRegion = new HostelRegion([
                     "regionid" => (int)$regionId,
                     "hostelid" => $hostelId
