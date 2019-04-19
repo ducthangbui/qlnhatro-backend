@@ -215,10 +215,9 @@ class HostelController extends Controller
 //                return response()->json([
 //                    "message" => (int)$regionId
 //                ],500);
-                $hostelRegion = new HostelRegion([
-                    "regionid" => (int)$regionId,
-                    "hostelid" => $hostelId
-                ]);
+                $hostelRegion = new HostelRegion();
+                $hostelRegion->regionid = (int) $regionId;
+                $hostelRegion->hostelid = $hostelId;
                 $hostelRegion->save();
                 if (!$hostelRegion){
                     return response()->json([
