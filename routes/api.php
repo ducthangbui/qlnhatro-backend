@@ -69,3 +69,40 @@ Route::get('/hostels/findByAdd',[
     'uses' => 'HostelController@findByAdd'
 ]);
 
+Route::get('/hostel/cancelHostel',[
+    'uses' => 'HostelController@cancelHostel',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::get('/hostel/hirred',[
+    'uses' => 'HostelController@hirred',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/hostel/addHostel',[
+    'uses' => 'HostelController@addHostel',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/hostel/updateHostel',[
+    'uses' => 'HostelController@updateHostel',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/hostel/deleteHostel',[
+    'uses' => 'HostelController@deleteHostel',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::get('/hostel/getHostelsLL',[
+    'uses' => 'HostelController@getHostelsLL',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::get('/hostel/statisticView',[
+    'uses' => 'HostelController@statisticView',
+    'middleware' => 'auth.jwt'
+]);
+
+
+

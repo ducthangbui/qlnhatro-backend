@@ -13,7 +13,7 @@ class CreateHostelRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hostelregions', function (Blueprint $table) {
+        Schema::create('hostel_regions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('regionid');
             $table->integer('hostelid');
@@ -28,6 +28,6 @@ class CreateHostelRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hostel_region');
+        Schema::dropIfExists('hostel_regions');
     }
 }

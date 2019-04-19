@@ -18,9 +18,9 @@ class UserController extends Controller
         ]);
 
         $roleid = $request->input('roleid');
-        if ($roleid == 1) {
-            $roleid = 2;
-        }
+//        if ($roleid == 1) {
+//            $roleid = 2;
+//        }
 
         $user = new User([
             'name' => $request->input('name'),
@@ -55,7 +55,7 @@ class UserController extends Controller
                 'error' => 'Could not create token'
             ],500);
         }
-
+//        $user = User::where('email', $request->input('email'))->first();
         return response()->json([
             "token" => $token
         ],200);
@@ -73,6 +73,11 @@ class UserController extends Controller
     {
         $user = JWTAuth::parseToken()->toUser();
         $user_info = User::where('id',$user->id)->find(1);
+        if ($user_info == null){
+            return response([
+                "message" => "not found"
+            ],201);
+        }
         $user_info->name = $request->name;
         $user_info->email = $request->email;
         if ($request->password != "" || $request->password != null){

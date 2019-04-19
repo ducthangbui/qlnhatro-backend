@@ -23,7 +23,7 @@ class CreateHostelsTable extends Migration
             $table->integer('closedtime');
             $table->integer('status');
             $table->integer('price');
-            $table->integer('regionid');
+            $table->string('img');
             $table->integer('addid');
             $table->integer('haslandlords');
             $table->timestamps();
@@ -37,6 +37,6 @@ class CreateHostelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hostel');
+        Schema::dropIfExists('hostels');
     }
 }

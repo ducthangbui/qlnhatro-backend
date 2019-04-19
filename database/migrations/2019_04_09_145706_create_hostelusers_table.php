@@ -13,9 +13,10 @@ class CreateHostelUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('hostelusers', function (Blueprint $table) {
+        Schema::create('hostel_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userid');
+            $table->integer('usertt');
+            $table->integer('userct');
             $table->integer('hostelid');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateHostelUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hostel_user');
+        Schema::dropIfExists('hostel_users');
     }
 }
