@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hostel;
+use App\HostelRegion;
 use App\HostelUser;
 use App\RoleUser;
 use App\User;
@@ -199,16 +200,29 @@ class HostelController extends Controller
                 "img" =>  $fileName
             ]);
             $hostel->save();
-
-            if ($hostel){
+            if (!$hostel){
                 return response()->json([
-                    "message" => "success"
-                ],200);
+                    "message" => "not success"
+                ],500);
+            }
+            $hostelId = $hostel->id;
+            $regionsIds = $request->input('regions');
+            foreach ($regionsIds as $regionId){
+                $hostelRegion = new HostelRegion([
+                    "regionId" => $regionId,
+                    "hostelId" =>$hostelId
+                ]);
+                $hostelRegion->save();
+                if (!$hostelRegion){
+                    return response()->json([
+                        "message" => "not success"
+                    ],200);
+                }
             }
         }
 
         return response()->json([
-            "message" => "not success"
+            "message" => "success"
         ],500);
 
     }
