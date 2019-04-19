@@ -55,9 +55,10 @@ class UserController extends Controller
                 'error' => 'Could not create token'
             ],500);
         }
-//        $user = User::where('email', $request->input('email'))->first();
+        $user = User::where('email', $request->input('email'))->first();
         return response()->json([
-            "token" => $token
+            "token" => $token,
+            "role" => $user->roleid
         ],200);
     }
 
