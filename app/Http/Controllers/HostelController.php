@@ -207,6 +207,7 @@ class HostelController extends Controller
             }
             $hostelId = $hostel->id;
             $regionsIds = $request->input('regions');
+            $regionsIds = explode(",",$regionsIds)
             foreach ($regionsIds as $regionId){
                 $hostelRegion = new HostelRegion([
                     "regionId" => $regionId,
