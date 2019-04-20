@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Hostel;
 use App\HostelRegion;
 use App\HostelUser;
+use App\Region;
 use App\RoleUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,6 +18,15 @@ class HostelController extends Controller
     public function getHostels(Request $request, $offset)
     {
         $hostels = Hostel::where('status',0)->skip($offset)->take(42)->get();
+        foreach ($hostels as $hostel) {
+            $regions = HostelRegion::where('hostelid', $hostel->id)->get();
+            $name_regions = "";
+            foreach ($regions as $region){
+                $name_region = Region::where('id', $region->regionid)->first('name');
+                $name_regions = $name_region . "," . $name_region;
+            }
+            $hostel->name_regions = $name_regions;
+        }
         return response()->json([
             "hostels" => $hostels
         ],200);
