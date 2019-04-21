@@ -30,6 +30,9 @@ class HostelController extends Controller
             }
             $hostel->name_add = Add::where('id',$hostel->addid)->first()->name;
             $name_regions = ltrim($name_regions, $name_regions[0]);
+
+            $hostel->user = User::where('id',$hostel->userid)->get('name', 'phonenumber');
+
             $hostel->name_regions = $name_regions;
             $rate = Rate::where('postid', $hostel->id)->first();
             if ($rate == null){
@@ -37,6 +40,8 @@ class HostelController extends Controller
             } else {
                 $hostel->rate = $rate->rate;
             }
+
+
         }
         return response()->json([
             "hostels" => $hostels
