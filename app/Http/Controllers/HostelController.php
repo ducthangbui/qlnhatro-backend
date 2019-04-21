@@ -25,6 +25,7 @@ class HostelController extends Controller
                 $name_region = Region::where('id', $region->regionid)->first('name');
                 $name_regions = $name_region . "," . $name_region;
             }
+            $hostel->user = User::where('id',$hostel->userid)->get('name', 'phonenumber');
             $hostel->name_regions = $name_regions;
         }
         return response()->json([
