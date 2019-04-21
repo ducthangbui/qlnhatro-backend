@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Add;
 use App\Hostel;
 use App\HostelRegion;
 use App\HostelUser;
-use App\Rate;
 use App\Region;
 use App\RoleUser;
 use App\User;
@@ -23,20 +21,11 @@ class HostelController extends Controller
         foreach ($hostels as $hostel) {
             $regions = HostelRegion::where('hostelid', $hostel->id)->get();
             $name_regions = "";
-
             foreach ($regions as $region){
-                $name_region = Region::where('id', $region->regionid)->first();
-                $name_regions = $name_regions . ", " . $name_region->name;
+                $name_region = Region::where('id', $region->regionid)->first('name');
+                $name_regions = $name_region . "," . $name_region;
             }
-            $hostel->name_add = Add::where('id',$hostel->addid)->first()->name;
-            $name_regions = ltrim($name_regions, $name_regions[0]);
             $hostel->name_regions = $name_regions;
-            $rate = Rate::where('postid', $hostel->id)->first();
-            if ($rate == null){
-                $hostel->rate = 0;
-            } else {
-                $hostel->rate = $rate->rate;
-            }
         }
         return response()->json([
             "hostels" => $hostels

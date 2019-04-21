@@ -104,5 +104,15 @@ Route::get('/hostel/statisticView',[
     'middleware' => 'auth.jwt'
 ]);
 
+Route::post('/addRegion',[
+    'uses' => 'RegionController@addRegion',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/addAdd',[
+    'uses' => 'AddController@addAdd',
+    'middleware' => 'auth.jwt'
+]);
+
 
 
