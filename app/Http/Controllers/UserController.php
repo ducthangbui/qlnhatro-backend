@@ -58,7 +58,8 @@ class UserController extends Controller
         $user = User::where('email', $request->input('email'))->first();
         return response()->json([
             "token" => $token,
-            "role" => $user->roleid
+            "role" => $user->roleid,
+            "name" => $user->name
         ],200);
     }
 

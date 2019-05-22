@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HostelUser extends Model
 {
     protected $table = 'hostel_users';
+    protected $fillable = [
+        'userct', 'usertt', 'hostelid'
+    ];
 }

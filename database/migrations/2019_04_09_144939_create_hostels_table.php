@@ -25,7 +25,9 @@ class CreateHostelsTable extends Migration
             $table->integer('price');
             $table->string('img');
             $table->integer('addid');
+            $table->integer('views');
             $table->integer('haslandlords');
+            $table->integer('floorarea');
             $table->timestamps();
         });
     }

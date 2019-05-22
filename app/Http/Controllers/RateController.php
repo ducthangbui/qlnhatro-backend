@@ -32,11 +32,7 @@ class RateController extends Controller
     public function rate(Request $request)
     {
         $user = JWTAuth::parseToken()->toUser();
-//        return response()->json([
-//            "user_id" => $user->id,
-//            "postid" => $request->input('postid'),
-//            "rate" => $request->input('rate')
-//        ],200);
+
         $rate = new Rate([
             'postid' => $request->input('postid'),
             'userid' => $user->id,
